@@ -30,7 +30,6 @@ const validateHour = (hour) => {
     return null;
   }
 };
-
 const validateDay = (day) => {
   if (!weekDays.includes(day)) {
     throw new Error(dayError);

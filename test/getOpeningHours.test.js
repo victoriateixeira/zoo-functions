@@ -25,18 +25,21 @@ describe('Testes da função getOpeningHours', () => {
     expect(() => (getOpeningHours('Thu', '09:00-AM')).toThrow('The day must be valid. Example: Monday'));
   });
   it('Testa se a função aciona o erro "The hour must be between 0 and 12" quando recebe um parâmetro que não é uma hora válido', () => {
-    expect(() => (getOpeningHours('Tuesday', '13:00-AM')).toThrow('The hour must be between 0 and 12'));
-    expect(() => (getOpeningHours('Tuesday', '-10:00-AM')).toThrow('The hour must be between 0 and 12'));
+    const error = 'The hour must be between 0 and 12';
+    expect(() => (getOpeningHours('Friday', '13:00-PM')).toThrow(error));
+    expect(() => (getOpeningHours('Friday', '-10:00-AM')).toThrow(error));
   });
   it('Testa se a função aciona o erro "The minutes must be between 0 and 59" quando recebe um parâmetro que não é um minuto válido', () => {
-    expect(() => (getOpeningHours('Tuesday', '09:63-AM')).toThrow('The minutes must be between 0 and 59'));
-    expect(() => (getOpeningHours('Tuesday', '09:-15-AM')).toThrow('The minutes must be between 0 and 59'));
+    const error = 'The minutes must be between 0 and 59';
+    expect(() => (getOpeningHours('Sunday', '09:63-AM')).toThrow(error));
+    expect(() => (getOpeningHours('Sunday', '09:-15-AM')).toThrow(error));
   });
   it('Testa se a função aciona o erro "The abbreviation must be AM or PM" quando recebe um parâmetro que não é uma abreviação válida', () => {
-    expect(() => (getOpeningHours('Tuesday', '09:10-RM')).toThrow('The abbreviation must be \'AM\' or \'PM\''));
+    const error = 'The abbreviation must be \'AM\' or \'PM\'';
+    expect(() => (getOpeningHours('Friday', '09:00-ZM')).toThrow(error));
   });
   it('Testa se a função aciona o erro "The hour should represent a number" quando recebe um parâmetro de hora que não é um número', () => {
-    expect(() => (getOpeningHours('Tuesday', 'C9:10-AM')).toThrow('The hour should represent a number'));
+    expect(() => (getOpeningHours('Tuesday', 'C9:00-AM')).toThrow('The hour should represent a number'));
   });
   it('Testa se a função aciona o erro "The minutes should represent a number" quando recebe um parâmetro de minutos que não é um número', () => {
     expect(() => (getOpeningHours('Tuesday', '09:co-AM')).toThrow('The minutes should represent a number'));
